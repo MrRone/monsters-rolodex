@@ -1,11 +1,7 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import {
-  CardList
-} from './components/card-list/card-list.component'
-import { SearchBox } from './components/search-box/search-box.component';
+import { CardList } from './components/card-list/card-list.component'
+import SearchBox from './components/search-box/search-box.component';
 
 class App extends Component {
 
@@ -16,11 +12,9 @@ class App extends Component {
       monsters: [],
       searchField: ''
     }
-
-    this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
-  handleSearchChange(e){
+  handleSearchChange = (e) => {
     this.setState({ searchField: e.target.value });
     console.log(e.target.value);
   }
@@ -39,6 +33,7 @@ class App extends Component {
     
     return ( 
       <div className='App' >
+        <h1>Monsters Rolodex</h1>
         <SearchBox placeholder={'Search monsters...'} handleSearchChange={this.handleSearchChange}/>  
         <CardList monsters={ filteredMonsters }/> 
       </div>
