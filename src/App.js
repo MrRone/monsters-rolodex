@@ -5,6 +5,7 @@ import './App.css';
 import {
   CardList
 } from './components/card-list/card-list.component'
+import { SearchBox } from './components/search-box/search-box.component';
 
 class App extends Component {
 
@@ -12,8 +13,16 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: []
+      monsters: [],
+      searchField: ''
     }
+
+    this.handleSearchChange = this.handleSearchChange.bind(this)
+  }
+
+  handleSearchChange(e){
+    this.setState({ searchField: e.target.value });
+    console.log(e.target.value);
   }
 
   componentDidMount() {
@@ -23,9 +32,15 @@ class App extends Component {
   }
 
   render() {
+    const { monsters, searchField } = this.state;
+    const filteredMonsters = monsters.filter(m => 
+      m.name.toLowerCase().includes(searchField.toLocaleLowerCase())
+    );
+    
     return ( 
-      <div className = "App" >
-        <CardList monsters={this.state.monsters }/> 
+      <div className='App' >
+        <SearchBox placeholder={'Search monsters...'} handleSearchChange={this.handleSearchChange}/>  
+        <CardList monsters={ filteredMonsters }/> 
       </div>
     )
   }
